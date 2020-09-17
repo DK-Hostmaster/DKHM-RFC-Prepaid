@@ -2,8 +2,8 @@
 
 # DKHM RFC for Prepaid account information with the EPP Service
 
-![Markdownlint Action](https://github.com/DK-Hostmaster/DKHM-RFC-Waiting_list/workflows/Markdownlint%20Action/badge.svg)
-![Spellcheck Action](https://github.com/DK-Hostmaster/DKHM-RFC-Waiting_list/workflows/Spellcheck%20Action/badge.svg)
+![Markdownlint Action](https://github.com/DK-Hostmaster/DKHM-RFC-Prepaid/workflows/Markdownlint%20Action/badge.svg)
+![Spellcheck Action](https://github.com/DK-Hostmaster/DKHM-RFC-Prepaid/workflows/Spellcheck%20Action/badge.svg)
 
 2020-09-17
 Revision: 1.0
