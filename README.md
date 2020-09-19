@@ -5,7 +5,7 @@
 ![Markdownlint Action](https://github.com/DK-Hostmaster/DKHM-RFC-Prepaid/workflows/Markdownlint%20Action/badge.svg)
 ![Spellcheck Action](https://github.com/DK-Hostmaster/DKHM-RFC-Prepaid/workflows/Spellcheck%20Action/badge.svg)
 
-2020-09-17
+2020-09-19
 Revision: 1.0
 
 ## Table of Contents
@@ -70,6 +70,8 @@ The proposed extensions and XSD definitions are available in the  [3.2 candidate
 ## Description
 
 ### Fetching Balance
+
+_TODO_ fill in details on extension
 
 ### Domain name Application/Creation Failure
 
