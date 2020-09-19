@@ -36,3 +36,5 @@ xsd
 xsi
 pendingDelete
 serverUpdateProhibited
+DKHM
+DK
