@@ -127,7 +127,7 @@ The restoration is requested using the update domain command.
 </epp>
 ```
 
-Example is lifted from [RFC:3915][RFC:3915]
+Example is lifted from [RFC:3915][RFC3915]
 
 The interesting part is, the extension specifying the restore operation.
 
@@ -172,7 +172,7 @@ Next step is to acknowledge the restore operation using a report operation, whic
 </epp>
 ```
 
-Example is lifted from [RFC:3915][RFC:3915]
+Example is lifted from [RFC:3915][RFC3915]
 
 The proposal is to the the report part act as an acknowledgement. The domain name is restored _as-is_ if possible, so the mandatory fields:
 
@@ -242,11 +242,11 @@ A response indicating successful restoration attempt will look as follows:
 </epp>
 ```
 
-Example is lifted from [RFC:3915][RFC:3915]
+Example is lifted from [RFC:3915][RFC3915].
 
 The successful operation will result in a transaction deducing the restoration fee from the prepaid account. In addition to the restoration fee, the period fee is also deducted, extending the period for the domain name.
 
-It is planned to extend the use of the extensions described in [RFC:3915][RFC:3915], so the complete fee can both be inquired prior to restoration and is visible in an extended response to a successful operation. These proposed extensions will be described in futher detail at a later time, for now please refer to [RFC:3915][RFC:3915] for details.
+It is planned to extend the use of the extensions described in [RFC:3915][RFC3915], so the complete fee can both be inquired prior to restoration and is visible in an extended response to a successful operation. These proposed extensions will be described in futher detail at a later time, for now please refer to [RFC:3915][RFC3915] for details.
 
 <a id="xsd-definition"></a>
 ## XSD Definition
@@ -259,6 +259,7 @@ It is planned to extend the use of the extensions described in [RFC:3915][RFC:39
 - [RFC:5730 "Extensible Provisioning Protocol (EPP)"][RFC5730]
 
 [RFC5730]: https://www.rfc-editor.org/rfc/rfc5730.html
+[RFC3915]: https://www.rfc-editor.org/rfc/rfc3915.html
 [DKHMEPPSPEC]: https://github.com/DK-Hostmaster/epp-service-specification
 [DKHMXSDSPEC]: https://github.com/DK-Hostmaster/epp-xsd-files
 [CONCEPT]: https://www.dk-hostmaster.dk/en/new-basis-collaboration-between-registrars-and-dk-hostmaster
