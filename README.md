@@ -18,6 +18,9 @@ Revision: 1.0
   - [Document History](#document-history)
   - [XML and XSD Examples](#xml-and-xsd-examples)
 - [Description](#description)
+  - [Fetch Balance](#fetch_balance)
+  - [Domain name Application/Creation Failure](#domain_application_failure)
+  - [Restore a Domain Name, suspended due to missing financial settlement](#restore)
 - [XSD Definition](#xsd-definition)
 - [References](#references)
 
@@ -69,10 +72,12 @@ The proposed extensions and XSD definitions are available in the  [3.2 candidate
 <a id="description"></a>
 ## Description
 
-### Fetching Balance
+<a id="fetch_balance"></a>
+### Fetch Balance
 
 _TODO_ fill in details on extension
 
+<a id="domain_application_failure"></a>
 ### Domain name Application/Creation Failure
 
 As described in the introduction, the existing commands, which are categorized as billable are not changed. Due to the change to the billing procedure however, the application/create operation is extended with a error scenario, for when the prepaid account does not have sufficient funds.
@@ -87,6 +92,7 @@ The proposed error message is the following.
 
 Quoted from [RFC:5700][RFC5730].
 
+<a id="restore"></a>
 ### Restore a Domain Name, suspended due to missing financial settlement
 
 The ability to restore a domain from a suspended state, is mentioned in the introduction as a billable operation.
