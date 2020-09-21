@@ -44,7 +44,7 @@ The procedures for renewal and application/creation are not being changed, in re
 
 This mean that a new error scenario is introduced for creation/application, where an application/create request will be declined, in case of insufficient funds. The renewal operation is not subjected to this policy, please refer to the registrar contract for specific details as this is a technical document and not the authoritative source for business and policy rules.
 
-All prices and amounts relating to currencies are provided in DKK, converted to the EPP currency type, using decimal point (`.`) and not decimal comman (`,`), which is the definition for the Danish locale.
+All prices and amounts relating to currencies are provided in DKK, converted to the EPP currency type, using decimal point (`.`) and not decimal comma (`,`), which is the definition for the Danish locale.
 
 <a id="about-this-document"></a>
 ### About this Document
@@ -93,13 +93,13 @@ Example lifted from "[Balance Mapping for the Extensible Provisioning Protocol (
 
 ```xml
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<epp xmlns="urn:ietf:paramxml:nepp-1.0">
+<epp xmlns="urn:ietf:params:xml:ns:epp-1.0">
     <response>
         <result code="1000">
             <msg>Command completed successfully</msg>
         </result>
         <resData>
-            <balance:infData xmlnbalance="http://www.verisign.com/epp/balance-1.0">
+            <balance:infData xmlns:balance="http://www.verisign.com/epp/balance-1.0">
                 <balance:creditLimit>1000.00</balance:creditLimit>
                 <balance:balance>200.00</balance:balance>
                 <balance:availableCredit>800.00</balance:availableCredit>
