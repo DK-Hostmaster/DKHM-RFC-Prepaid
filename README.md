@@ -5,7 +5,7 @@
 ![Markdownlint Action](https://github.com/DK-Hostmaster/DKHM-RFC-Prepaid/workflows/Markdownlint%20Action/badge.svg)
 ![Spellcheck Action](https://github.com/DK-Hostmaster/DKHM-RFC-Prepaid/workflows/Spellcheck%20Action/badge.svg)
 
-2020-09-19
+2020-09-21
 Revision: 1.0
 
 ## Table of Contents
@@ -44,6 +44,8 @@ The procedures for renewal and application/creation are not being changed, in re
 
 This mean that a new error scenario is introduced for creation/application, where an application/create request will be declined, in case of insufficient funds. The renewal operation is not subjected to this policy, please refer to the registrar contract for specific details as this is a technical document and not the authoritative source for business and policy rules.
 
+All prices and amounts relating to currencies are provided in DKK, converted to the EPP currency type, using decimal point (`.`) and not decimal comman (`,`), which is the definition for the Danish locale.
+
 <a id="about-this-document"></a>
 ### About this Document
 
@@ -59,7 +61,7 @@ This document is copyright by DK Hostmaster A/S and is licensed under the MIT Li
 <a id="document-history"></a>
 ### Document History
 
-- 1.0 2020-09-19
+- 1.0 2020-09-21
   - Initial revision
 
 <a id="xml-and-xsd-examples"></a>
@@ -67,7 +69,7 @@ This document is copyright by DK Hostmaster A/S and is licensed under the MIT Li
 
 All example XML files are available in the [DK Hostmaster EPP XSD repository][DKHMXSDSPEC].
 
-The proposed extensions and XSD definitions are available in the  [3.2 candidate][DKHMXSD3.2] of the DK Hostmaster XSD, which is currently a draft and work in progress and marked as a  _pre-release_.
+The proposed extensions and XSD definitions are available in the  [3.2 candidate][DKHMXSD3.2] of the DK Hostmaster XSD, which is currently a draft and work in progress and marked as a  _pre-release_, unless these are separate extensions, where the original RFCs should be consulted. See: [RFC:3915][RFC3915] for extensions related to grace periods. The XSD definition related to balance originated from "[Balance Mapping for the Extensible Provisioning Protocol (EPP)][BALANCE]" and is included in this document.
 
 <a id="description"></a>
 ## Description
@@ -75,7 +77,46 @@ The proposed extensions and XSD definitions are available in the  [3.2 candidate
 <a id="fetch_balance"></a>
 ### Fetch Balance
 
-_TODO_ fill in details on extension
+```xml
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<epp xmlns="urn:ietf:params:xml:ns:epp-1.0">
+    <command>
+        <info>
+            <balance:info xmlns:balance="http://www.verisign.com/epp/balance-1.0"/>
+        </info>
+        <clTRID>ABC-12345</clTRID>
+    </command>
+</epp>
+```
+
+Example lifted from "[Balance Mapping for the Extensible Provisioning Protocol (EPP)][BALANCE]" (see References).
+
+```xml
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<epp xmlns="urn:ietf:paramxml:nepp-1.0">
+    <response>
+        <result code="1000">
+            <msg>Command completed successfully</msg>
+        </result>
+        <resData>
+            <balance:infData xmlnbalance="http://www.verisign.com/epp/balance-1.0">
+                <balance:creditLimit>1000.00</balance:creditLimit>
+                <balance:balance>200.00</balance:balance>
+                <balance:availableCredit>800.00</balance:availableCredit>
+                <balance:creditThreshold>
+                    <balance:fixed>500.00</balance:fixed>
+                </balance:creditThreshold>
+            </balance:infData>
+        </resData>
+        <trID>
+            <clTRID>ABC-12345</clTRID>
+            <svTRID>54322-XYZ</svTRID>
+        </trID>
+    </response>
+</epp>
+```
+
+Example lifted from "[Balance Mapping for the Extensible Provisioning Protocol (EPP)][BALANCE]" (see References).
 
 <a id="domain_application_failure"></a>
 ### Domain name Application/Creation Failure
@@ -99,12 +140,12 @@ The ability to restore a domain from a suspended state, is mentioned in the intr
 
 Restoration supports two scenarios.
 
-1. Restoration from deletion, this is described in detail in the ["DKHM RFC for Delete Domain EPP Command"][DKHMRFCDELETE]
+1. Restoration from deletion, this is described in detail in the "[DKHM RFC for Delete Domain EPP Command][DKHMRFCDELETE]"
 1. Restoration from suspension due to missing financial settlement
 
-The procedure is the same and we aim to use the same extension, so the information provided in ["DKHM RFC for Delete Domain EPP Command"][DKHMRFCDELETE] is echoed here for clarity and due to the coherence to the prepaid concept.
+The procedure is the same and we aim to use the same extension, so the information provided in "[DKHM RFC for Delete Domain EPP Command][DKHMRFCDELETE]" is echoed here for clarity and due to the coherence to the prepaid concept.
 
-As described in [RFC:3915][RFC3915], with a support for grace periods, it is possible to restore a domain name scheduled for deletion, (in the state `pendingDelete`), this is the scenario primarily covered in ["DKHM RFC for Delete Domain EPP Command"][DKHMRFCDELETE].
+As described in [RFC:3915][RFC3915], with a support for grace periods, it is possible to restore a domain name scheduled for deletion, (in the state `pendingDelete`), this is the scenario primarily covered in "[DKHM RFC for Delete Domain EPP Command][DKHMRFCDELETE]".
 
 Domain names might be suspended for other reasons, these will no be recoverable using the described restore facility, this will be indicated using the `serverUpdateProhibited` status.
 
@@ -222,7 +263,7 @@ A response indicating unsuccessful restoration attempt will look as follows:
 </epp>
 ```
 
-Example lifted from [RFC:5730|RFC5730] and modified.
+Example lifted from [RFC:5730][RFC5730] and modified.
 
 A response indicating successful restoration attempt will look as follows:
 
@@ -257,12 +298,73 @@ It is planned to extend the use of the extensions described in [RFC:3915][RFC391
 <a id="xsd-definition"></a>
 ## XSD Definition
 
+The XSD definition supporting [RFC:3915][RFC3915], is included with [RFC:3915][RFC3915].
+
+The XSD definition for supporting balance was lifted from "[Balance Mapping for the Extensible Provisioning Protocol (EPP)][BALANCE]".
+
+```xsd
+<?xml version="1.0" encoding="UTF-8"?>
+
+<schema targetNamespace="http://www.verisign.com/epp/balance-1.0"
+    xmlns:balance="http://www.verisign.com/epp/balance-1.0"
+    xmlns="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified">
+
+    <annotation>
+        <documentation>
+      Extensible Provisioning Protocol v1.0
+      Verisign mapping for getting account balance and
+      other financial information.
+        </documentation>
+    </annotation>
+
+    <!--
+Child elements found in EPP commands.
+-->
+    <!-- Empty balance:info command element -->
+    <element name="info"/>
+
+    <!--
+Child response elements.
+-->
+    <element name="infData" type="balance:infDataType"/>
+
+    <!--Child elements of the balance:infData element -->
+    <complexType name="infDataType">
+        <sequence>
+            <element name="creditLimit" type="balance:currencyValueType"/>
+            <element name="balance" type="balance:currencyValueType"/>
+            <element name="availableCredit" type="balance:currencyValueType"/>
+            <element name="creditThreshold" type="balance:thresholdType"/>
+        </sequence>
+    </complexType>
+
+    <complexType name="thresholdType">
+        <choice>
+            <element name="fixed" type="balance:currencyValueType"/>
+            <element name="percent" type="integer"/>
+        </choice>
+    </complexType>
+
+    <simpleType name="currencyValueType">
+        <restriction base="decimal">
+            <fractionDigits value="2"/>
+        </restriction>
+    </simpleType>
+
+    <!-- End of schema.-->
+</schema>
+```
+
+XSD definition lifted from "[Balance Mapping for the Extensible Provisioning Protocol (EPP)][BALANCE]" (see References).
+
 <a id="references"></a>
 ## References
 
 - [DK Hostmaster EPP Service Specification][DKHMEPPSPEC]
 - [DK Hostmaster EPP Service XSD Repository][DKHMXSDSPEC]
+- [RFC:3915 "Domain Registry Grace Period Mapping for the Extensible Provisioning Protocol (EPP)"][RFC3915]
 - [RFC:5730 "Extensible Provisioning Protocol (EPP)"][RFC5730]
+- ["DKHM RFC for Delete Domain EPP Command"][DKHMRFCDELETE]
 
 [RFC5730]: https://www.rfc-editor.org/rfc/rfc5730.html
 [RFC3915]: https://www.rfc-editor.org/rfc/rfc3915.html
@@ -271,3 +373,4 @@ It is planned to extend the use of the extensions described in [RFC:3915][RFC391
 [CONCEPT]: https://www.dk-hostmaster.dk/en/new-basis-collaboration-between-registrars-and-dk-hostmaster
 [DKHMXSD3.2]: https://github.com/DK-Hostmaster/epp-xsd-files/blob/master/dkhm-3.2.xsd
 [DKHMRFCDELETE]: https://github.com/DK-Hostmaster/DKHM-RFC-Delete-Domain
+[BALANCE]: https://www.verisign.com/assets/epp-sdk/verisign_epp-extension_balance_v01.html
